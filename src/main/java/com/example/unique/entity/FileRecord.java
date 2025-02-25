@@ -1,7 +1,7 @@
 package com.example.unique.entity;
 
 // import javax.persistence.*;
-import jakarta.*;
+
 import jakarta.persistence.*;
 
 @Entity
