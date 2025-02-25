@@ -1,20 +1,23 @@
-# Use an official OpenJDK runtime as a parent image
+# Use an official OpenJDK 21 image as the base image
 FROM eclipse-temurin:21-jdk
 
-# Set the working directory in the container
+# Set the working directory inside the container
 WORKDIR /app
 
-# Copy the Maven wrapper and source code
+# Copy Maven wrapper and project files
 COPY . /app
 
-# Give execute permission to the Maven wrapper
+# Give execute permissions to Maven wrapper
 RUN chmod +x mvnw
 
-# Install Maven dependencies and package the application
+# Install dependencies and package the application
 RUN ./mvnw clean package -DskipTests
+
+# Copy the built JAR file into the final image
+RUN cp target/*.jar app.jar
 
 # Expose the application's port
 EXPOSE 8080
 
 # Run the Spring Boot application
-CMD ["java", "-jar", "target/*.jar"]
+CMD ["java", "-jar", "app.jar"]
